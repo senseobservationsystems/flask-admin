@@ -279,6 +279,9 @@
         var overrideXeditableParams = function(params) {
             var newParams = {};
             newParams['list_form_pk'] = params.pk;
+            if (params.value === undefined || params.value.length == 0) {
+                params.value = [""];
+            }
             newParams[params.name] = params.value;
             if ($(this).data('csrf')) {
                 newParams['csrf_token'] = $(this).data('csrf');
@@ -471,6 +474,29 @@
 
                         if(data.length) {
                             $.each(data, function(i, v) { html.push($.fn.editableutils.escape(v.text)); });
+                            $(this).html(html.join(', '));
+                        } else {
+                            $(this).empty();
+                        }
+                    }
+                });
+                return true;
+            case 'x-editable-select2-tags':
+                $el.editable({
+                    params: overrideXeditableParams,
+                    ajaxOptions: {
+                        // prevents keys with the same value from getting converted into arrays
+                        traditional: true
+                    },
+                    select2: {
+                        tags: [],
+                        tokenSeparators: [','],
+                        minimumInputLength: 1,
+                    },
+                    display: function(value) {
+                        var html = [];
+                        if(value && value.length) {
+                            $.each(value, function(i, v) { html.push($.fn.editableutils.escape(v)); });
                             $(this).html(html.join(', '));
                         } else {
                             $(this).empty();
