@@ -18,6 +18,7 @@ class Select2Widget(widgets.Select):
         You must include select2.js, form-x.x.x.js and select2 stylesheet for it to
         work.
     """
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('data-role', u'select2')
 
@@ -32,11 +33,11 @@ class Select2TagsWidget(widgets.TextInput):
     """`Select2 <http://ivaynberg.github.com/select2/#tags>`_ styled text widget.
     You must include select2.js, form-x.x.x.js and select2 stylesheet for it to work.
     """
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('data-role', u'select2')
-        kwargs.setdefault('data-tags', u'1')
+        kwargs.setdefault('data-tags', field.get_options())
         return super(Select2TagsWidget, self).__call__(field, **kwargs)
-
 
 
 class DatePickerWidget(widgets.TextInput):
@@ -45,6 +46,7 @@ class DatePickerWidget(widgets.TextInput):
 
         You must include bootstrap-datepicker.js and form-x.x.x.js for styling to work.
     """
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('data-role', u'datepicker')
         kwargs.setdefault('data-date-format', u'YYYY-MM-DD')
@@ -59,6 +61,7 @@ class DateTimePickerWidget(widgets.TextInput):
 
         You must include bootstrap-datepicker.js and form-x.x.x.js for styling to work.
     """
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('data-role', u'datetimepicker')
         kwargs.setdefault('data-date-format', u'YYYY-MM-DD HH:mm:ss')
@@ -71,6 +74,7 @@ class TimePickerWidget(widgets.TextInput):
 
         You must include bootstrap-datepicker.js and form-x.x.x.js for styling to work.
     """
+
     def __call__(self, field, **kwargs):
         kwargs.setdefault('data-role', u'timepicker')
         kwargs.setdefault('data-date-format', u'HH:mm:ss')
@@ -81,6 +85,7 @@ class RenderTemplateWidget(object):
     """
         WTForms widget that renders Jinja2 template
     """
+
     def __init__(self, template):
         """
             Constructor

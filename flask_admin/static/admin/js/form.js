@@ -301,7 +301,7 @@
                 if ($el.attr('data-tags')) {
                     $.extend(opts, {
                         tokenSeparators: [','],
-                        tags: []
+                        tags: JSON.parse($el.attr('data-tags')),
                     });
                 }
 
@@ -489,9 +489,8 @@
                         traditional: true
                     },
                     select2: {
-                        tags: [],
+                        tags: JSON.parse($el.attr('data-tags')),
                         tokenSeparators: [','],
-                        minimumInputLength: 1,
                     },
                     display: function(value) {
                         var html = [];

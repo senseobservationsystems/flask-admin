@@ -21,6 +21,7 @@ class DateTimeField(fields.DateTimeField):
        Allows modifying the datetime format of a DateTimeField using form_args.
     """
     widget = admin_widgets.DateTimePickerWidget()
+
     def __init__(self, label=None, validators=None, format=None, **kwargs):
         """
             Constructor
@@ -154,7 +155,7 @@ class Select2TagsField(fields.StringField):
     """
     widget = admin_widgets.Select2TagsWidget()
 
-    def __init__(self, label=None, validators=None, save_as_list=False, coerce=text_type, **kwargs):
+    def __init__(self, label=None, validators=None, save_as_list=False, coerce=text_type, choices=[], **kwargs):
         """Initialization
 
         :param save_as_list:
@@ -162,8 +163,12 @@ class Select2TagsField(fields.StringField):
         """
         self.save_as_list = save_as_list
         self.coerce = coerce
+        self.choices = choices
 
         super(Select2TagsField, self).__init__(label, validators, **kwargs)
+
+    def get_options(self):
+        return json.dumps(self.choices)
 
     def process_formdata(self, valuelist):
         if self.save_as_list:
@@ -181,6 +186,7 @@ class Select2TagsField(fields.StringField):
 
 
 class JSONField(fields.TextAreaField):
+
     def _value(self):
         if self.raw_data:
             return self.raw_data[0]
