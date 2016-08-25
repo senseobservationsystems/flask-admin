@@ -490,12 +490,14 @@
                     },
                     select2: {
                         tags: JSON.parse($el.attr('data-tags')),
-                        tokenSeparators: [','],
+                        tokenSeparators: [',']
                     },
                     display: function(value) {
                         var html = [];
                         if(value && value.length) {
+                            value.sort();
                             $.each(value, function(i, v) { html.push($.fn.editableutils.escape(v)); });
+                            html.sort();
                             $(this).html(html.join(', '));
                         } else {
                             $(this).empty();
